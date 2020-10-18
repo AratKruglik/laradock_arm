@@ -14,9 +14,9 @@
 
 ARG LARADOCK_PHP_VERSION
 ARG BASE_IMAGE_TAG_PREFIX=latest
-FROM laradock/php-fpm:${BASE_IMAGE_TAG_PREFIX}-${LARADOCK_PHP_VERSION}
+FROM phusion/baseimage:master-arm
 
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+LABEL maintainer="Oleksii Kruhlyk <alexkruglik81@gmail.com>"
 
 ARG LARADOCK_PHP_VERSION
 

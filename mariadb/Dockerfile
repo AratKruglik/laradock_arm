@@ -1,7 +1,7 @@
 ARG MARIADB_VERSION=latest
-FROM mariadb:${MARIADB_VERSION}
+FROM  linuxserver/mariadb:${MARIADB_VERSION}
 
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+LABEL maintainer="Oleksii Kruhlyk <alexkruglik81@gmail.com>"
 
 #####################################
 # Set Timezone
