@@ -3,14 +3,6 @@
 # Image Setup
 #--------------------------------------------------------------------------
 #
-# To edit the 'workspace' base Image, visit its repository on Github
-#    https://github.com/Laradock/workspace
-#
-# To change its version, see the available Tags on the Docker Hub:
-#    https://hub.docker.com/r/laradock/workspace/tags/
-#
-# Note: Base Image name format {image-tag}-{php-version}
-#
 
 ARG LARADOCK_PHP_VERSION
 #
@@ -19,9 +11,11 @@ ARG LARADOCK_PHP_VERSION
 #--------------------------------------------------------------------------
 #
 
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:master-arm
 
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+LABEL maintainer="Oleksii Kruhlyk <alexkruglik81@gmail.com>"
+
+ARG LARADOCK_PHP_VERSION
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN locale-gen en_US.UTF-8
@@ -49,22 +43,22 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --allow-downgrades --allow-remove-essential \
         --allow-change-held-packages \
-        php7.4-cli \
-        php7.4-common \
-        php7.4-curl \
-        php7.4-intl \
-        php7.4-json \
-        php7.4-xml \
-        php7.4-mbstring \
-        php7.4-mysql \
-        php7.4-pgsql \
-        php7.4-sqlite \
-        php7.4-sqlite3 \
-        php7.4-zip \
-        php7.4-bcmath \
-        php7.4-memcached \
-        php7.4-gd \
-        php7.4-dev \
+        php${LARADOCK_PHP_VERSION}-cli \
+        php${LARADOCK_PHP_VERSION}-common \
+        php${LARADOCK_PHP_VERSION}-curl \
+        php${LARADOCK_PHP_VERSION}-intl \
+        php${LARADOCK_PHP_VERSION}-json \
+        php${LARADOCK_PHP_VERSION}-xml \
+        php${LARADOCK_PHP_VERSION}-mbstring \
+        php${LARADOCK_PHP_VERSION}-mysql \
+        php${LARADOCK_PHP_VERSION}-pgsql \
+        php${LARADOCK_PHP_VERSION}-sqlite \
+        php${LARADOCK_PHP_VERSION}-sqlite3 \
+        php${LARADOCK_PHP_VERSION}-zip \
+        php${LARADOCK_PHP_VERSION}-bcmath \
+        php${LARADOCK_PHP_VERSION}-memcached \
+        php${LARADOCK_PHP_VERSION}-gd \
+        php${LARADOCK_PHP_VERSION}-dev \
         pkg-config \
         libcurl4-openssl-dev \
         libedit-dev \
@@ -659,19 +653,19 @@ RUN if [ ${INSTALL_INOTIFY} = true ]; then \
 # AST EXTENSION
 ###########################################################################
 
-ARG INSTALL_AST=false
-ARG AST_VERSION=1.0.3
-ENV AST_VERSION ${AST_VERSION}
-
-RUN if [ ${INSTALL_AST} = true ]; then \
-    # AST extension requires PHP 7.0.0 or newer
-    if [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
-        # Install AST extension
-        printf "\n" | pecl -q install ast-${AST_VERSION} && \
-        echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini && \
-        phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast \
-    ;fi \
-;fi
+#ARG INSTALL_AST=false
+#ARG AST_VERSION=1.0.3
+#ENV AST_VERSION ${AST_VERSION}
+#
+#RUN if [ ${INSTALL_AST} = true ]; then \
+#    # AST extension requires PHP 7.0.0 or newer
+#    if [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
+#        # Install AST extension
+#        printf "\n" | pecl -q install ast-${AST_VERSION} && \
+#        echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini && \
+#        phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast \
+#    ;fi \
+#;fi
 
 ###########################################################################
 # fswatch
